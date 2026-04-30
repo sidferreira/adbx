@@ -10,7 +10,7 @@
 ADBX_DIR="${0:A:h}"
 ADBX_SCRIPT="${0:A}"
 
-for _f in "$ADBX_DIR/commands/"*.sh; do
+for _f in "$ADBX_DIR/adbx-commands/"*.sh; do
   source "$_f"
 done
 unset _f

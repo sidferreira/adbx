@@ -38,4 +38,4 @@ autoload -Uz compinit && compinit
 
 ## Layout
 
-Each command lives in its own file under `src/commands/<name>.sh` and is sourced by `src/adbx` at startup. Completion entries live in `src/_adbx`.
+Each command lives in its own file under `src/adbx-commands/<name>.sh` and is sourced by `src/adbx` at startup. Completion entries live in `src/_adbx`.
