@@ -1,0 +1,62 @@
+#compdef adbx
+
+_adbx() {
+  local state
+
+  _arguments \
+    '1: :->cmd' \
+    '*: :->args'
+
+  case $state in
+    cmd)
+      local commands=(
+        'animate:Enable or disable animations'
+        'theme:Set theme'
+        'install:Install an APK file'
+        'record:Record screen to Desktop'
+        'screenshot:Take screenshot to Desktop'
+        'talkback:Enable or disable TalkBack'
+        'no-password-manager:Disable password/credential managers (emulator only)'
+        'auto-reverse:Manage ADB reverse daemon'
+        'help:Show help'
+      )
+      _describe 'command' commands
+      ;;
+    args)
+      case $words[2] in
+        animate)
+          local opts=('on:Enable animations' 'off:Disable animations')
+          _describe 'option' opts
+          ;;
+        theme)
+          local opts=('light:Light theme' 'dark:Dark theme' 'auto:System default')
+          _describe 'option' opts
+          ;;
+        talkback)
+          local opts=('on:Enable TalkBack' 'off:Disable TalkBack')
+          _describe 'option' opts
+          ;;
+        install)
+          _files -g '*.apk'
+          ;;
+        auto-reverse)
+          local opts=(
+            'listener:Start device monitoring'
+            'install:Install the background service'
+            'start:Start the background service'
+            'stop:Stop the background service'
+            'restart:Restart the background service'
+            'status:Check if service is running'
+            'uninstall:Remove the service'
+            'logs:Show recent log entries'
+            'test:Run manually in foreground'
+            'help:Show help'
+          )
+          _describe 'subcommand' opts
+          ;;
+      esac
+      ;;
+  esac
+}
+
+_adbx
