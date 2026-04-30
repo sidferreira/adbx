@@ -4,6 +4,15 @@ Unified ADB helper. Wraps common `adb` operations behind short, memorable subcom
 
 ## Install
 
+### Homebrew (recommended)
+
+```sh
+brew tap sidferreira/adbx
+brew install adbx
+```
+
+### Manual
+
 Drop `src/adbx` and `src/_adbx` into a directory on your `PATH` and `fpath`, e.g. `~/.local/bin/`:
 
 ```sh
