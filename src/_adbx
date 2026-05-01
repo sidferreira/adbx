@@ -16,7 +16,7 @@ _adbx() {
         'record:Record screen to Desktop'
         'screenshot:Take screenshot to Desktop'
         'talkback:Enable or disable TalkBack'
-        'no-password-manager:Disable password/credential managers (emulator only)'
+        'password-manager:Enable or disable password/credential managers (emulator only)'
         'auto-reverse:Manage ADB reverse daemon'
         'help:Show help'
       )
@@ -34,6 +34,10 @@ _adbx() {
           ;;
         talkback)
           local opts=('on:Enable TalkBack' 'off:Disable TalkBack')
+          _describe 'option' opts
+          ;;
+        password-manager)
+          local opts=('on:Re-enable password/credential managers' 'off:Disable password/credential managers')
           _describe 'option' opts
           ;;
         install)

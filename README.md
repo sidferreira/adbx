@@ -37,13 +37,15 @@ autoload -Uz compinit && compinit
 | `adbx record` | Record screen to `~/Desktop` (Enter to stop) |
 | `adbx screenshot` | Take a screenshot to `~/Desktop` |
 | `adbx talkback on\|off` | Enable or disable TalkBack |
-| `adbx no-password-manager` | Disable password/credential managers (emulator only) |
+| `adbx password-manager on\|off` | Enable or disable password/credential managers (emulator only) |
 | `adbx auto-reverse <subcmd>` | Manage the ADB reverse daemon |
 | `adbx help` | Show help |
 
 `auto-reverse` subcommands: `listener`, `install`, `start`, `stop`, `restart`, `status`, `uninstall`, `logs`, `test`, `help`.
 
-`no-password-manager` refuses to run unless the connected device is an emulator — it clears GMS data and disables autofill/credential services, which is only safe on AVDs.
+`password-manager` refuses to run unless the connected device is an emulator — `off` clears GMS data and disables autofill/credential services; `on` resets those secure-settings keys to system defaults.
+
+When `auto-reverse` is running and detects a newly-connected emulator, it pops a macOS dialog asking whether to disable the password manager on it. Choose **Disable** to run `password-manager off` against that specific emulator, or **Skip** to leave it alone. Real (non-emulator) devices are never prompted. The dialog auto-dismisses to *Skip* after 60 seconds.
 
 ## Layout
 

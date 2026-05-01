@@ -46,6 +46,42 @@ _ar_setup_reverse() {
   fi
 }
 
+_ar_is_emulator() {
+  local device_id="$1" kind qemu
+  kind=$(adb -s "$device_id" shell getprop ro.kind 2>/dev/null | tr -d '\r')
+  qemu=$(adb -s "$device_id" shell getprop ro.boot.qemu 2>/dev/null | tr -d '\r')
+  [[ "$kind" == "emulator" || "$qemu" == "1" ]]
+}
+
+_ar_prompt_disable_pm() {
+  local device_id="$1" choice
+  choice=$(osascript 2>/dev/null <<EOF
+tell application "System Events"
+  activate
+  set msg to "Emulator $device_id just connected." & return & return & "Disable password/credential managers on this emulator?"
+  set d to display dialog msg buttons {"Skip", "Disable"} default button "Skip" with title "adbx auto-reverse" with icon caution giving up after 60
+  return button returned of d
+end tell
+EOF
+)
+  [[ "$choice" == "Disable" ]]
+}
+
+_ar_offer_disable_pm() {
+  local device_id="$1"
+  if ! _ar_is_emulator "$device_id"; then
+    return 0
+  fi
+  _ar_log "Emulator detected ($device_id); prompting to disable password manager"
+  if _ar_prompt_disable_pm "$device_id"; then
+    _ar_log "User opted to disable password manager on $device_id"
+    ANDROID_SERIAL="$device_id" cmd_password_manager off >> "$AR_LOG_FILE" 2>&1
+    _ar_notify "Password Manager" "Disabled on $device_id"
+  else
+    _ar_log "User skipped password manager prompt for $device_id"
+  fi
+}
+
 _ar_monitor_devices() {
   local known_devices=()
   _ar_log "Starting Android device monitoring..."
@@ -58,6 +94,7 @@ _ar_monitor_devices() {
       if [[ ! " ${known_devices[@]} " =~ " ${device} " ]]; then
         _ar_log "New device detected: $device"
         _ar_setup_reverse "$device"
+        _ar_offer_disable_pm "$device"
         known_devices+=("$device")
       fi
     done

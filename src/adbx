@@ -29,7 +29,7 @@ cmd_help() {
   echo "  record                          Record screen to Desktop (Enter to stop)"
   echo "  screenshot                      Take screenshot to Desktop"
   echo "  talkback on|off                 Enable or disable TalkBack"
-  echo "  no-password-manager             Disable password/credential managers (emulator only)"
+  echo "  password-manager on|off         Enable or disable password/credential managers (emulator only)"
   echo "  auto-reverse <subcmd>           Manage ADB reverse daemon"
   echo "    subcmds: listener|install|start|stop|restart|status|uninstall|logs|test|help"
   echo "  help                            Show this help"
@@ -42,7 +42,7 @@ case "$1" in
   record)       cmd_record ;;
   screenshot)   cmd_screenshot ;;
   talkback)     shift; cmd_talkback "$@" ;;
-  no-password-manager) cmd_no_password_manager ;;
+  password-manager) shift; cmd_password_manager "$@" ;;
   auto-reverse) shift; cmd_auto_reverse "$@" ;;
   help|--help|-h) cmd_help ;;
   "")
