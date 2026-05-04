@@ -31,7 +31,7 @@ autoload -Uz compinit && compinit
 
 | Command | Description |
 |---|---|
-| `adbx animate on\|off` | Enable or disable animations |
+| `adbx animate on\|off\|<n>` | Enable, disable, or scale animations (n=1 normal, n=5 slow) |
 | `adbx theme light\|dark\|auto` | Set system theme |
 | `adbx install <file.apk>` | Install an APK |
 | `adbx record` | Record screen to `~/Desktop` (Enter to stop) |

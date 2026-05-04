@@ -23,7 +23,7 @@ cmd_help() {
   echo "Usage: adbx <command> [args]"
   echo ""
   echo "Commands:"
-  echo "  animate on|off                  Enable or disable animations"
+  echo "  animate on|off|<n>              Enable, disable, or scale animations (n=1 normal, n=5 slow)"
   echo "  theme light|dark|auto           Set theme"
   echo "  install <file.apk>              Install an APK"
   echo "  record                          Record screen to Desktop (Enter to stop)"

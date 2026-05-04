@@ -25,7 +25,13 @@ _adbx() {
     args)
       case $words[2] in
         animate)
-          local opts=('on:Enable animations' 'off:Disable animations')
+          local opts=(
+            'on:Enable animations (scale 1)'
+            'off:Disable animations (scale 0)'
+            '2:2× slow'
+            '5:5× slow'
+            '10:10× slow'
+          )
           _describe 'option' opts
           ;;
         theme)
