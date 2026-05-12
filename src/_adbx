@@ -16,6 +16,7 @@ _adbx() {
         'record:Record screen to Desktop'
         'screenshot:Take screenshot to Desktop'
         'talkback:Enable or disable TalkBack'
+        'touches:Show tap circles or pointer overlay'
         'password-manager:Enable or disable password/credential managers (emulator only)'
         'auto-reverse:Manage ADB reverse daemon'
         'help:Show help'
@@ -40,6 +41,14 @@ _adbx() {
           ;;
         talkback)
           local opts=('on:Enable TalkBack' 'off:Disable TalkBack')
+          _describe 'option' opts
+          ;;
+        touches)
+          local opts=(
+            'on:Show taps (circles on each touch)'
+            'verbose:Show taps + pointer location overlay'
+            'off:Hide all touch indicators'
+          )
           _describe 'option' opts
           ;;
         password-manager)
