@@ -10,13 +10,32 @@ _adbx() {
   case $state in
     cmd)
       local commands=(
-        'animate:Enable or disable animations'
-        'theme:Set theme'
+        'airplane:Enable or disable airplane mode'
+        'animate:Enable, disable, or scale animations'
+        'audio:Mute an audio stream'
+        'brightness:Set screen brightness to maximum'
+        'clear-data:Clear app data for a package'
+        'cpu:Show processor info'
+        'demo:Enable or disable demo mode'
+        'display:Adjust display density'
+        'font:Adjust font scale'
         'install:Install an APK file'
+        'launch:Launch an app by package name'
+        'layout:Show or hide layout bounds'
+        'packages:List installed packages'
+        'permissions:Show permissions for a package'
+        'pull-apk:Download APK(s) from device'
+        'reboot:Reboot device and wait until ready'
         'record:Record screen to Desktop'
         'screenshot:Take screenshot to Desktop'
+        'shared-prefs:Inspect or modify shared preferences'
+        'system-settings:Open system settings'
         'talkback:Enable or disable TalkBack'
+        'theme:Set theme (night mode)'
         'touches:Show tap circles or pointer overlay'
+        'uninstall:Uninstall a package'
+        'version:Show version name of a package'
+        'wifi:Connect device to a WPA WiFi network'
         'password-manager:Enable or disable password/credential managers (emulator only)'
         'auto-reverse:Manage ADB reverse daemon'
         'help:Show help'
@@ -25,15 +44,66 @@ _adbx() {
       ;;
     args)
       case $words[2] in
+        airplane)
+          local opts=('on:Enable airplane mode' 'off:Disable airplane mode')
+          _describe 'option' opts
+          ;;
         animate)
           local opts=(
             'on:Enable animations (scale 1)'
             'off:Disable animations (scale 0)'
+            'reset:Reset to default (scale 1)'
+            '0.5:0.5× speed'
+            '1.5:1.5× slow'
             '2:2× slow'
             '5:5× slow'
             '10:10× slow'
           )
           _describe 'option' opts
+          ;;
+        audio)
+          local opts=(
+            'voice-call:Mute voice call stream'
+            'system:Mute system stream'
+            'ring:Mute ringtone stream'
+            'music:Mute music stream'
+            'alarm:Mute alarm stream'
+            'notification:Mute notification stream'
+            'dtmf:Mute DTMF stream'
+            'accessibility:Mute accessibility stream'
+          )
+          _describe 'option' opts
+          ;;
+        demo)
+          local opts=('on:Enable demo mode' 'off:Disable demo mode')
+          _describe 'option' opts
+          ;;
+        display)
+          local opts=(
+            'info:Show current density and size'
+            'small:Small density (×0.85)'
+            'default:Reset to default density'
+            'large:Large density (×1.1)'
+            'larger:Larger density (×1.2)'
+            'largest:Largest density (×1.3)'
+          )
+          _describe 'option' opts
+          ;;
+        font)
+          local opts=(
+            'small:Small font (0.85)'
+            'default:Default font (1.0)'
+            'large:Large font (1.15)'
+            'largest:Largest font (1.3)'
+          )
+          _describe 'option' opts
+          ;;
+        layout)
+          local opts=('show:Show layout bounds' 'hide:Hide layout bounds')
+          _describe 'option' opts
+          ;;
+        shared-prefs)
+          # First arg is package name; no useful completions
           ;;
         theme)
           local opts=('light:Light theme' 'dark:Dark theme' 'auto:System default')

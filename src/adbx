@@ -23,13 +23,33 @@ cmd_help() {
   echo "Usage: adbx <command> [args]"
   echo ""
   echo "Commands:"
-  echo "  animate on|off|<n>              Enable, disable, or scale animations (n=1 normal, n=5 slow)"
-  echo "  theme light|dark|auto           Set theme"
+  echo "  airplane on|off                 Enable or disable airplane mode"
+  echo "  animate on|off|reset|<n>        Enable, disable, or scale animations"
+  echo "  audio <stream>                  Mute a stream (voice-call|system|ring|music|alarm|notification|dtmf|accessibility)"
+  echo "  brightness                      Set screen brightness to maximum"
+  echo "  clear-data <package>            Clear app data for a package"
+  echo "  cpu                             Show processor info"
+  echo "  demo on|off                     Enable or disable demo mode"
+  echo "  display info|small|default|large|larger|largest  Adjust display density"
+  echo "  font small|default|large|largest  Adjust font scale"
   echo "  install <file.apk>              Install an APK"
+  echo "  launch <package>                Launch an app by package name"
+  echo "  layout show|hide                Show or hide layout bounds"
+  echo "  packages                        List installed packages"
+  echo "  permissions <package>           Show granted/denied permissions for a package"
+  echo "  pull-apk <package>              Download APK(s) from device"
+  echo "  reboot                          Reboot device and wait until ready"
   echo "  record                          Record screen to Desktop (Enter to stop)"
   echo "  screenshot                      Take screenshot to Desktop"
+  echo "  shared-prefs <pkg> list [file]  List shared preferences"
+  echo "  shared-prefs <pkg> remove <file> <key>  Remove a shared preference"
+  echo "  system-settings                 Open system settings"
   echo "  talkback on|off                 Enable or disable TalkBack"
-  echo "  touches on|off|verbose          Show tap circles (on) or full pointer overlay (verbose)"
+  echo "  theme light|dark|auto           Set theme (night mode)"
+  echo "  touches on|off|verbose          Show tap circles or full pointer overlay"
+  echo "  uninstall <package>             Uninstall a package"
+  echo "  version <package>               Show version name of a package"
+  echo "  wifi <ssid> <password>          Connect device to a WPA WiFi network"
   echo "  password-manager on|off         Enable or disable password/credential managers (emulator only)"
   echo "  auto-reverse <subcmd>           Manage ADB reverse daemon"
   echo "    subcmds: listener|install|start|stop|restart|status|uninstall|logs|test|help"
@@ -37,15 +57,34 @@ cmd_help() {
 }
 
 case "$1" in
-  animate)      shift; cmd_animate "$@" ;;
-  theme)        shift; cmd_theme "$@" ;;
-  install)      shift; cmd_install "$@" ;;
-  record)       cmd_record ;;
-  screenshot)   cmd_screenshot ;;
-  talkback)     shift; cmd_talkback "$@" ;;
-  touches)      shift; cmd_touches "$@" ;;
+  airplane)       shift; cmd_airplane "$@" ;;
+  animate)        shift; cmd_animate "$@" ;;
+  audio)          shift; cmd_audio "$@" ;;
+  brightness)     cmd_brightness ;;
+  clear-data)     shift; cmd_clear_data "$@" ;;
+  cpu)            cmd_cpu ;;
+  demo)           shift; cmd_demo "$@" ;;
+  display)        shift; cmd_display "$@" ;;
+  font)           shift; cmd_font "$@" ;;
+  install)        shift; cmd_install "$@" ;;
+  launch)         shift; cmd_launch "$@" ;;
+  layout)         shift; cmd_layout "$@" ;;
+  packages)       cmd_packages ;;
+  permissions)    shift; cmd_permissions "$@" ;;
+  pull-apk)       shift; cmd_pull_apk "$@" ;;
+  reboot)         cmd_reboot ;;
+  record)         cmd_record ;;
+  screenshot)     cmd_screenshot ;;
+  shared-prefs)   shift; cmd_shared_prefs "$@" ;;
+  system-settings) cmd_system_settings ;;
+  talkback)       shift; cmd_talkback "$@" ;;
+  theme)          shift; cmd_theme "$@" ;;
+  touches)        shift; cmd_touches "$@" ;;
+  uninstall)      shift; cmd_uninstall "$@" ;;
+  version)        shift; cmd_version "$@" ;;
+  wifi)           shift; cmd_wifi "$@" ;;
   password-manager) shift; cmd_password_manager "$@" ;;
-  auto-reverse) shift; cmd_auto_reverse "$@" ;;
+  auto-reverse)   shift; cmd_auto_reverse "$@" ;;
   help|--help|-h) cmd_help ;;
   "")
     cmd_help
