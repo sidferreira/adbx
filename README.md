@@ -45,8 +45,6 @@ autoload -Uz compinit && compinit
 
 `password-manager` refuses to run unless the connected device is an emulator — `off` clears GMS data and disables autofill/credential services; `on` resets those secure-settings keys to system defaults.
 
-When `auto-reverse` is running and detects a newly-connected emulator, it pops a macOS dialog asking whether to disable the password manager on it. Choose **Disable** to run `password-manager off` against that specific emulator, or **Skip** to leave it alone. Real (non-emulator) devices are never prompted. The dialog auto-dismisses to *Skip* after 60 seconds.
-
 ## Layout
 
 Each command lives in its own file under `src/adbx-commands/<name>.sh` and is sourced by `src/adbx` at startup. Completion entries live in `src/_adbx`.
